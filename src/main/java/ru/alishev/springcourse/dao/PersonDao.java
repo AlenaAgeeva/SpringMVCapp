@@ -14,10 +14,10 @@ public class PersonDao {
 
     {
         people = new ArrayList<>(Arrays.asList(
-                new Person(++ID, "Tom"),
-                new Person(++ID, "Jhon"),
-                new Person(++ID, "Sam"),
-                new Person(++ID, "Kris")
+                new Person(++ID, "Tom", 23, "tom@gmail.com"),
+                new Person(++ID, "Jhon", 46, "someemail@gmail.com"),
+                new Person(++ID, "Sam", 16, "newpostemail@yahoo.com"),
+                new Person(++ID, "Kris", 65, "hellothere@gmail.com")
         ));
     }
 
@@ -38,8 +38,9 @@ public class PersonDao {
 
     public void update(int id, Person updatedPerson) {
         Person personToBeUpdated = show(id);
-
         personToBeUpdated.setName(updatedPerson.getName());
+        personToBeUpdated.setAge(updatedPerson.getAge());
+        personToBeUpdated.setEmail(updatedPerson.getEmail());
     }
 
     public void delete(int id) {
