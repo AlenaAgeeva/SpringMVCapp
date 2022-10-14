@@ -50,7 +50,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>5.2.9.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.thymeleaf</groupId>

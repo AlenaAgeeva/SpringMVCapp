@@ -15,7 +15,6 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
-import java.sql.DriverManager;
 
 
 @Configuration
@@ -36,6 +35,7 @@ public class SpringConfig implements WebMvcConfigurer {
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -47,6 +47,15 @@ public class SpringConfig implements WebMvcConfigurer {
         return templateEngine;
     }
 
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
+
+        registry.viewResolver(resolver);
+    }
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dm = new DriverManagerDataSource();
@@ -56,15 +65,9 @@ public class SpringConfig implements WebMvcConfigurer {
         dm.setPassword("rbnftpsrbnftps2020");
         return dm;
     }
-    @Bean
-    public JdbcTemplate jdbcTemplate(){
-        return new JdbcTemplate();
-    }
 
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        registry.viewResolver(resolver);
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSource());
     }
 }
