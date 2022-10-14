@@ -1,65 +1,34 @@
 package ru.alishev.springcourse.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.alishev.springcourse.models.Person;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 @Component
 public class PersonDao {
-    private final static String URL = "jdbc:postgresql://localhost:5432/spring_mvc_app";
-    private final static String USER = "postgres";
-    private final static String PASS = "rbnftpsrbnftps2020";
-    private static Connection connection;
+    private final JdbcTemplate jdbcTemplate;
 
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(URL, USER, PASS);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    @Autowired
+    public PersonDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
 
     public List<Person> index() {
-        List<Person> list = new ArrayList<>();
-        try {
-            ResultSet resultSet = connection.createStatement()
-                    .executeQuery("select * from person;");
-            while (resultSet.next()) {
-                list.add(new Person(resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("age"),
-                        resultSet.getString("email")));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return list;
+        return jdbcTemplate.query("Select * from person", new PersonMapper());
     }
 
     public Person show(int id) {
-        Person person = null;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * from Person where id = ?");
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            person = new Person(resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getInt("age"),
-                    resultSet.getString("email")
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return person;
+        return jdbcTemplate.query("SELECT * from Person where id = ?",
+                        new Object[]{id},
+                        new PersonMapper()).stream()
+                .findAny()
+                .orElse(null);
     }
 
     public void save(Person person) {
