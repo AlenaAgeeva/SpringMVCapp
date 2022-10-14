@@ -3,37 +3,66 @@ package ru.alishev.springcourse.dao;
 import org.springframework.stereotype.Component;
 import ru.alishev.springcourse.models.Person;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class PersonDao {
-    private List<Person> people;
     private static int ID;
+    private final static String URL = "jdbc:postgresql://localhost:5432/spring_mvc_app";
+    private final static String USER = "postgres";
+    private final static String PASS = "rbnftpsrbnftps2020";
+    private static Connection connection;
 
-    {
-        people = new ArrayList<>(Arrays.asList(
-                new Person(++ID, "Tom", 23, "tom@gmail.com"),
-                new Person(++ID, "Jhon", 46, "someemail@gmail.com"),
-                new Person(++ID, "Sam", 16, "newpostemail@yahoo.com"),
-                new Person(++ID, "Kris", 65, "hellothere@gmail.com")
-        ));
+    static {
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(URL, USER, PASS);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
+
     public List<Person> index() {
-        return people;
+        List<Person> list = new ArrayList<>();
+        try {
+            ResultSet resultSet = connection.createStatement()
+                    .executeQuery("select * from person;");
+            while (resultSet.next()) {
+                list.add(new Person(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("age"),
+                        resultSet.getString("email")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public Person show(int id) {
-        return people.stream()
-                .filter(p -> p.getId() == id)
-                .findFirst()
-                .orElse(null);
+//        return people.stream()
+//                .filter(p -> p.getId() == id)
+//                .findFirst()
+//                .orElse(null);
+        return null;
     }
+
     public void save(Person person) {
-        person.setId(++ID);
-        people.add(person);
+        try {
+            connection.createStatement()
+                    .executeUpdate("INSERT INTO Person VALUES(" + 1 + ",'" + person.getName() +
+                            "'," + person.getAge() + ",'" + person.getEmail() + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(int id, Person updatedPerson) {
@@ -44,6 +73,6 @@ public class PersonDao {
     }
 
     public void delete(int id) {
-        people.removeIf(p -> p.getId() == id);
+        //people.removeIf(p -> p.getId() == id);
     }
 }
