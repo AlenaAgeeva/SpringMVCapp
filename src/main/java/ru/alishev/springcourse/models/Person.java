@@ -16,19 +16,14 @@ public class Person {
     @NotEmpty(message = "Surname should not be empty")
     @Size(min = 2, max = 20, message = "Surname should be no longer than 20 characters")
     private String surname;
-    @NotEmpty(message = "Age should not be empty")
     @Min(value = 1, message = "Age should be greater than 1")
     private int age;
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be valid")
     private String email;
-    @NotEmpty(message = "Telephone number should not be empty")
-    @Size(min = 5, max = 20, message = "Telephone number should be no longer than 20 characters")
     private long tel;
-    @NotEmpty(message = "Health Card number should not be empty")
-    @Size(min = 5, max = 20, message = "Health Card number should be no longer than 20 characters")
     private long health_card_num;
-    @Size(min = 5, max = 50, message = "Health Card number should be no longer than 50 characters")
+    @Size(max = 50, message = "Doctor's name should be no longer than 50 characters")
     private String family_doctor;
 
 
@@ -47,5 +42,4 @@ public class Person {
         this.health_card_num = health_card_num;
         this.family_doctor = family_doctor;
     }
-
 }

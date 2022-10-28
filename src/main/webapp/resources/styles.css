@@ -11,6 +11,17 @@ h1{
     text-align: center;
     margin-bottom: 15px;
 }
+h3{
+    font-size: 30px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: left;
+    margin-bottom: 15px;
+}
+p{
+    color: white;
+}
 table{
     width:100%;
     table-layout: fixed;
@@ -47,12 +58,81 @@ hr.new1{
 button {
     background-color: rgba(255, 255, 255, 0.85);
     border: none;
-    color: #051a85;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     font-family: "Book Antiqua";
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 18px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 0px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #181414;
+}
+
+input[type=submit] {
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 18px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+    font-family: "Book Antiqua";
+}
+input[type=submit][value=Delete] {
+    width: 20%;
+    background-color: #fa0202;
+    color: #ffffff;
+    padding: 14px 20px;
+    margin: 18px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+    font-family: "Book Antiqua";
+}
+
+input[type=submit]:hover {
+    background-color: #4ac74e;
+}
+input[type=submit][value=Delete]:hover {
+    background-color: #690b2c;
+}
+
+div.d{
+    border-radius: 5px;
+    background-color: rgba(242, 242, 242, 0.28);
+    padding: 100px;
+    border-top-style: solid;
+    border-top-width: 0px;
+    padding-top: 40px;
+    border-bottom-width: 0px;
+    border-bottom-style: solid;
+    padding-bottom: 40px;
+    margin-top: 0px;
+}
+form{
+    color: white;
+    font-size: 20px;
+    font-family: "Book Antiqua";
+}
+
+
 

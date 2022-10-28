@@ -2,22 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update person</title>
+    <title>Update patient</title>
+    <link th:href="@{/resources/styles.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-<form th:method="POST" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <br/>
-    <label for="age">Enter age: </label>
-    <input type="text" th:field="*{age}" id="age"/>
-    <br/>
-    <label for="email">Enter email: </label>
-    <input type="text" th:field="*{email}" id="email"/>
-    <br/>
-    <input type="submit" value="Update!"/>
-</form>
-
+<h3>Update existing patient</h3>
+<div th:class="d">
+    <form th:method="POST" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}"th:class="form">
+        <label for="name">Enter name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <br/>
+        <label for="surname">Enter surname: </label>
+        <input type="text" th:field="*{surname}" id="surname"/>
+        <br/>
+        <label for="age">Enter age: </label>
+        <input type="text" th:field="*{age}" id="age"/>
+        <br/>
+        <label for="email">Enter email: </label>
+        <input type="text" th:field="*{email}" id="email"/>
+        <br/>
+        <label for="tel">Enter telephone: </label>
+        <input type="text" th:field="*{tel}" id="tel"/>
+        <br/>
+        <label for="health_card_num">Enter health card: </label>
+        <input type="text" th:field="*{health_card_num}" id="health_card_num"/>
+        <br/>
+        <label for="family_doctor">Enter family doctor: </label>
+        <input type="text" th:field="*{family_doctor}" id="family_doctor"/>
+        <br/>
+        <input type="submit" value="Update"/>
+    </form>
+</div>
 </body>
 </html>

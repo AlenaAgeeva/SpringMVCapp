@@ -2,23 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New person</title>
+    <title>New patient</title>
+    <link th:href="@{/resources/styles.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-<form th:method="POST" th:action="@{/people}" th:object="${person}">
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color: darkred" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
-    <br/>
-    <label for="age">Enter age: </label>
-    <input type="text" th:field="*{age}" id="age"/>
-    <br/>
-    <label for="email">Enter email: </label>
-    <input type="text" th:field="*{email}" id="email"/>
-    <br/>
-    <input type="submit" value="Create!"/>
-</form>
-
+<h3>Create a new patient</h3>
+<div th:class="d">
+    <form th:method="POST" th:action="@{/people}" th:object="${person}" th:class="form">
+        <label for="name">Name: </label>
+        <input type="text" th:field="*{name}" id="name" placeholder="Your name.." th:class="input"/>
+        <div style="color: darkred" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="d">Name error
+        </div>
+        <br/>
+        <label for="surname">Surname: </label>
+        <input type="text" th:field="*{surname}" id="surname" placeholder="Your surname.."/>
+        <div style="color: darkred" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
+        <br/>
+        <label for="age">Age: </label>
+        <input type="text" th:field="*{age}" id="age"/>
+        <div style="color: darkred" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+        <br/>
+        <label for="email">Email: </label>
+        <input type="text" th:field="*{email}" id="email" placeholder="Your email.."/>
+        <div style="color: darkred" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+        <br/>
+        <label for="tel">Telephone Number: </label>
+        <input type="text" th:field="*{tel}" id="tel"/>
+        <div style="color: darkred" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}">Telephone number error</div>
+        <br/>
+        <label for="health_card_num">Health Card: </label>
+        <input type="text" th:field="*{health_card_num}" id="health_card_num"/>
+        <div style="color: darkred" th:if="${#fields.hasErrors('health_card_num')}" th:errors="*{health_card_num}">
+            Health Card Number error
+        </div>
+        <br/>
+        <label for="family_doctor">Family Doctor: </label>
+        <input type="text" th:field="*{family_doctor}" id="family_doctor" placeholder="Your family doctor.."/>
+        <div style="color: darkred" th:if="${#fields.hasErrors('family_doctor')}" th:errors="*{family_doctor}">Family
+            Doctor error
+        </div>
+        <br/>
+        <input type="submit" value="Create"/>
+    </form>
+</div>
 </body>
 </html>
